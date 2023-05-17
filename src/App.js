@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
 import './App.css';
 import FormRow from './components/FormRow';
-import Table from './components/Table';
+import TodoTable from './components/TodoTable';
 
 function App() {
 
   const [rows, setRows] = useState([
     { rowNumber: 1, rowDescription: 'Feed the Dog', rowAssignee: 'John Doe' },
-    { rowNumber: 2, rowDescription: 'Jogging', rowAssignee: 'Jane Smith' },
-    { rowNumber: 3, rowDescription: 'Buy groceries', rowAssignee: 'Bob Johnson' },
-    { rowNumber: 4, rowDescription: 'Do laundry', rowAssignee: 'Sarah Brown' },
-    { rowNumber: 5, rowDescription: 'Finish project', rowAssignee: 'Mike Lee' },
-    { rowNumber: 6, rowDescription: 'Call doctor', rowAssignee: 'Amy Chen' },
-    { rowNumber: 7, rowDescription: 'Pay bills', rowAssignee: 'Tom Wilson' },
-    { rowNumber: 8, rowDescription: 'Clean house', rowAssignee: 'Emily Davis' },
-    { rowNumber: 9, rowDescription: 'Read book', rowAssignee: 'David Kim' },
-    { rowNumber: 10, rowDescription: 'Go for a walk', rowAssignee: 'Linda Wong' }
+    { rowNumber: 2, rowDescription: 'Jogging', rowAssignee: 'Jane Smith' }
   ]);
 
   const addTODO = (assignee, desc) => {
+    let rowNumber = 0;
     if (rows.length > 0) {
-      const newRow = { rowNumber: rows.length + 1, rowDescription: desc, rowAssignee: assignee };
-      setRows(rows => [...rows, newRow]);
+      rowNumber = rows[rows.length - 1].rowNumber + 1;
+    } else {
+      rowNumber = 1;
     }
+    const newRow = { rowNumber: rowNumber, rowDescription: desc, rowAssignee: assignee };
+    setRows(rows => [...rows, newRow]);
 
   }
+
+  const handleDelete = (index) => {
+    let filteredRows = rows.filter((row) => row.rowNumber !== index);
+    setRows(filteredRows);
+  }
+
+  const [showAddTODO, setshowAddTODO] = useState(false);
 
   return (
     <div className="mt-5 container">
@@ -33,11 +36,20 @@ function App() {
           <h3 className="text-center">TODOs</h3>
         </div>
         <div className="card-body">
-          <Table rows={rows} />
+          <TodoTable rows={rows} handleDelete={handleDelete} />
+        </div>
+        <div className="card-footer">
+          <button className="btn btn-primary" onClick={() => setshowAddTODO(!showAddTODO)}>
+            Add New Todo
+          </button>
         </div>
       </div>
-      <FormRow addTODO={addTODO} />
+      {showAddTODO &&
+        <FormRow addTODO={addTODO} setshowAddTODO={setshowAddTODO}/>
+      }
+
     </div>
+
   );
 }
 

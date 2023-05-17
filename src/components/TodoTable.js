@@ -1,6 +1,7 @@
 import RowItem from "./RowItem";
 
-function Table(props) {
+function TodoTable(props) {
+    
     return (
         <table className="table table-hover">
             <thead>
@@ -12,12 +13,15 @@ function Table(props) {
             </thead>
             <tbody>
                 {props.rows.map(row => (
-                    <RowItem rowNumber={row.rowNumber}
+                    <RowItem
+                        key={row.rowNumber}
+                        rowNumber={row.rowNumber}
                         rowDescription={row.rowDescription}
-                        rowAssignee={row.rowAssignee} />
+                        rowAssignee={row.rowAssignee}
+                        handleDelete={props.handleDelete} />
                 ))}
             </tbody>
         </table>
     );
 }
-export default Table
+export default TodoTable

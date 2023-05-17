@@ -9,47 +9,40 @@ function FormRow(props) {
             props.addTODO(assignee, desc);
             setAssignee('');
             setDesc('');
+            props.setshowAddTODO(false);
         }
     }
-
     return (
-        <div className="container my-5">
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <form>
-                        <div className="form-group mb-3">
-                            <label htmlFor="rowAssignee">Assignee</label>
-                            <input type="text"
-                                className="form-control"
-                                id="rowAssignee"
-                                placeholder="Enter Assignee"
-                                onChange={(event) => {
-                                    setAssignee(event.target.value);
-                                }}
-                                value={assignee}
-                            >
-                            </input>
-                        </div>
-                        <div className="form-group mb-3">
-                            <label htmlFor="rowDescription">Description</label>
-                            <textarea type="text"
-                                onChange={(event) => {
-                                    setDesc(event.target.value);
-                                }}
-                                className="form-control"
-                                id="rowDescription"
-                                rows={3}
-                                value={desc}
-                                placeholder="Enter description"
-                            >
-                            </textarea>
-                        </div>
-                        <div className="d-grid gap-2">
-                            <button type="submit" className="btn btn-primary" onClick={submitTODO}>Add TODO</button>
-                        </div>
-                    </form>
+        <div className='mt-5'>
+            <form>
+                <div className='mb-3'>
+                    <label className='form-label'>Assigned</label>
+                    <input
+                        type='text'
+                        className='form-control'
+                        required
+                        onChange={e => setAssignee(e.target.value)}
+                        value={assignee}
+                    ></input>
                 </div>
-            </div>
+                <div className='mb-3'>
+                    <label className='form-label'>Description</label>
+                    <textarea
+                        className='form-control'
+                        rows={3}
+                        required
+                        onChange={e => setDesc(e.target.value)}
+                        value={desc}
+                    ></textarea>
+                </div>
+                <button
+                    type='button'
+                    className='btn btn-primary mt-3'
+                    onClick={submitTODO}
+                >
+                    Add Todo
+                </button>
+            </form>
         </div>
     );
 }
