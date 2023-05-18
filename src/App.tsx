@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import './App.css';
-import FormRow from './components/FormRow';
-import TodoTable from './components/TodoTable';
+import {FormRow} from './components/FormRow';
+import {TodoTable} from './components/TodoTable';
+import {TodoModel} from './models/TodoModel'
 
 function App() {
-
   const [rows, setRows] = useState([
-    { rowNumber: 1, rowDescription: 'Feed the Dog', rowAssignee: 'John Doe' },
-    { rowNumber: 2, rowDescription: 'Jogging', rowAssignee: 'Jane Smith' }
+    new TodoModel(1,"Feed the Dog","John Doe"),
+    new TodoModel(2, 'Jogging', 'Jane Smith'),
+    new TodoModel(3, 'Cook Dinner', 'John Doe'),
+    new TodoModel(4, 'Clean Room', 'Jane Smith')
   ]);
 
-  const addTODO = (assignee, desc) => {
-    let rowNumber = 0;
+  const addTODO = (assignee : string, desc : string) => {
+    let rowNumber : number = 0;
     if (rows.length > 0) {
       rowNumber = rows[rows.length - 1].rowNumber + 1;
     } else {
       rowNumber = 1;
     }
-    const newRow = { rowNumber: rowNumber, rowDescription: desc, rowAssignee: assignee };
-    setRows(rows => [...rows, newRow]);
-
+    setRows([...rows, new TodoModel(rowNumber, desc, assignee)]);
   }
 
-  const handleDelete = (index) => {
+  const handleDelete = (index : number) => {
     let filteredRows = rows.filter((row) => row.rowNumber !== index);
     setRows(filteredRows);
   }
@@ -47,9 +47,7 @@ function App() {
       {showAddTODO &&
         <FormRow addTODO={addTODO} setshowAddTODO={setshowAddTODO}/>
       }
-
     </div>
-
   );
 }
 

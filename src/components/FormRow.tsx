@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-function FormRow(props) {
+
+export const FormRow : React.FC<{ addTODO: Function, setshowAddTODO: Function }> = (props) => {
 
     const [assignee, setAssignee] = useState('');
     const [desc, setDesc] = useState('');
@@ -46,5 +47,3 @@ function FormRow(props) {
         </div>
     );
 }
-
-export default FormRow

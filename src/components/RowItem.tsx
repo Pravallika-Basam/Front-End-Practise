@@ -1,9 +1,9 @@
-function RowItem(props) {
+export const RowItem : React.FC< { handleDelete: Function, rowNumber: number, rowDescription: string, rowAssignee: string }> = (props) => {
     const handleDelete = () => {
         props.handleDelete(props.rowNumber);
     }
     return (
-        <tr>
+        <tr>    
             <th scope='row'>{props.rowNumber}</th>
             <td>{props.rowDescription}</td>
             <td>{props.rowAssignee}</td>
@@ -15,5 +15,3 @@ function RowItem(props) {
         </tr>
     );
 }
-
-export default RowItem
